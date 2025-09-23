@@ -6,6 +6,7 @@ import { Position } from "../../types/transform";
 import useLocationStore from "../../store/locationStore";
 import useSceneStore from "../../store/sceneStore";
 import { getObjectPosition } from "../../utility/objects";
+import { Billboard, Text } from "@react-three/drei";
 
 interface ObjectSceneProps {
     selectedVariants: Record<number, number>;
@@ -46,7 +47,7 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
             // .substractedPosition(cameraPosition);
 
             return (
-                <mesh
+                <group
                     key={sceneObjectId}
                     userData={{ sceneObjectId }}
                     position={position.toArray()}
@@ -57,13 +58,17 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
                 >
                     {variant.mesh_id === "primitive_cube" ? (
                         <>
-                            <boxGeometry args={variant.offset_scale} />
-                            <meshStandardMaterial color="#248cb5" />
+                            <mesh userData={{ sceneObjectId }}>
+                                <boxGeometry args={variant.offset_scale} />
+                                <meshStandardMaterial color="#248cb5" />
+                            </mesh>
                         </>
                     ) : variant.mesh_id === "primitive_sphere" ? (
                         <>
-                            <sphereGeometry args={variant.offset_scale} />
-                            <meshStandardMaterial color="#248cb5" />
+                            <mesh userData={{ sceneObjectId }}>
+                                <sphereGeometry args={variant.offset_scale} />
+                                <meshStandardMaterial color="#248cb5" />
+                            </mesh>
                         </>
                     ) : (
                         <MeshObject
@@ -75,7 +80,14 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
                             minioData={minioClientData}
                         />
                     )}
-                </mesh>
+
+                    {/* The text label above the object */}
+                    <Billboard position={[0, 7.5, 0]}>
+                        <Text fontSize={1} color="black" anchorX="center" anchorY="middle">
+                            {sceneObject.name ?? `Object Label for id ${sceneObjectId}`}
+                        </Text>
+                    </Billboard>
+                </group>
             );
         });
     }, [scene.objects, minioClientData, selectedVariants, worldPosition, worldRotation]);
@@ -84,7 +96,7 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
         console.warn("Scene data is null or undefined.");
         return null;
     }
-
+    console.log("Amount of objects rendered: " + (renderedObjects.length))
     return <group rotation={[0, -worldRotation - Math.PI / 2, 0]}>
         {renderedObjects}
     </group>;
