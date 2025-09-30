@@ -7,6 +7,7 @@ import { Position, Rotation, Scale } from "../../types/transform";
 import { MinioData } from "../../types/databaseData";
 import { LoadingSpheres, RoundedPlane } from "..";
 import useMessageStore from "../../store/messagesStore";
+import InfoLabel from "../infoLabel";
 
 interface MeshObjectProps {
     sceneObjectId: number;
@@ -29,10 +30,13 @@ const MeshObject = ({
     meshObjectUrl,
     position = new Position(), rotation = new Rotation(), scale = new Scale(),
     minioData,
-    onClick, showOutline = false, userData }: MeshObjectProps) => {
+    onClick,
+    showOutline = false,
+    userData }: MeshObjectProps) => {
 
     const [modelUrl, setModelUrl] = useState<string | null>(null); // State to store the Blob URL for the model
     const [showLabel, setShowLabel] = useState(false);
+    const [showInfoLabel, setShowInfoLabel] = useState(true);
     const [loading, setLoading] = useState(true); // State to track loading status
     const objectRef = useRef<THREE.Group | null>(null); // Ref for managing the scene object
     const { addScreenMessage, removeScreenMessage } = useMessageStore();
@@ -229,6 +233,9 @@ const MeshObject = ({
                         rotation={rotation}
                         scale={new Scale(scale)}
                     />
+                    {showInfoLabel && (
+                        <InfoLabel objectRef={objectRef} objectName={modelName} />
+                    )}
                 </Suspense>
             )}
         </>

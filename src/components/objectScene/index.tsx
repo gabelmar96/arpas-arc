@@ -6,7 +6,6 @@ import { Position } from "../../types/transform";
 import useLocationStore from "../../store/locationStore";
 import useSceneStore from "../../store/sceneStore";
 import { getObjectPosition } from "../../utility/objects";
-import { Billboard, Text } from "@react-three/drei";
 
 interface ObjectSceneProps {
     selectedVariants: Record<number, number>;
@@ -80,13 +79,6 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
                             minioData={minioClientData}
                         />
                     )}
-
-                    {/* The text label above the object */}
-                    <Billboard position={[0, 7.5, 0]}>
-                        <Text fontSize={1} color="black" anchorX="center" anchorY="middle">
-                            {sceneObject.name ?? `Object Label for id ${sceneObjectId}`}
-                        </Text>
-                    </Billboard>
                 </group>
             );
         });

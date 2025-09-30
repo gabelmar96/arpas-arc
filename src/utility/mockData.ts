@@ -65,7 +65,7 @@ export const BenchScene: SceneData = {
                     description: "A plain wooden bench with a natural wood texture. The surface is untreated, showcasing the raw grain and organic color variations of the timber. Ideal for rustic or traditional outdoor settings.",
                     mesh_id: "test/bench/bench.glb",
                     mesh_url: null,
-                    offset_position: [0, 50, 0],
+                    offset_position: [50, 0, 0],
                     offset_rotation: [0, -90, 0],
                     offset_scale: [1, 1, 1],
                     weight: 0,
