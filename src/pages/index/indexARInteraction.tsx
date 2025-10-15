@@ -1,8 +1,9 @@
 import { Mesh, Vector3, } from "three"
 import { useEffect, useLayoutEffect, useRef, useState } from "react"
 import { ThreeEvent, useThree } from "@react-three/fiber"
-import { Header } from "../../components-ui"
+import { Header, HelpMenu } from "../../components-ui"
 import { useXRStore, XRDomOverlay } from "@react-three/xr"
+import { Compass2D } from "../../components-ui/compass"
 
 const debounce = (func: () => void, delay: number) => {
     let timeoutId: ReturnType<typeof setTimeout>;
@@ -15,7 +16,7 @@ const debounce = (func: () => void, delay: number) => {
 const IndexPageARInteraction = () => {
     const store = useXRStore();
     const { gl, camera } = useThree();
-    const [position, setPosition] = useState<Vector3 | null>(null)
+    const [position, setPosition] = useState<Vector3>(new Vector3(0, 0, -1))
 
     //const planes = useXRPlanes(gl);
     //useTapRaycast(gl, camera, setPosition, planes);
@@ -30,6 +31,7 @@ const IndexPageARInteraction = () => {
         const updateHeaderHeight = () => {
             const header = document.querySelector("#arc-header") as HTMLElement;
             if (header) {
+                console.log("update header: " + (header.offsetTop + header.offsetHeight));
                 setHeaderHeight(header.offsetTop + header.offsetHeight);
             }
         };
@@ -42,7 +44,7 @@ const IndexPageARInteraction = () => {
         window.addEventListener("resize", debouncedUpdateHeaderHeight);
         return () => window.removeEventListener("resize", debouncedUpdateHeaderHeight);
     }, []);
-    
+
     useEffect(() => {
         const session = gl.xr.getSession();
         if (!session) return
@@ -91,6 +93,13 @@ const IndexPageARInteraction = () => {
                     isHelpVisible={isHelpVisible}
                     onToggleHelp={() => setIsHelpVisible((v) => !v)}
                     onLeave={() => store.getState().session?.end()}
+                    fontSize={fontSize}
+                />
+                <HelpMenu
+                    isVisible={isHelpVisible}
+                    onClose={() => setIsHelpVisible(false)}
+                    onLeave={() => store.getState().session?.end()}
+                    headerHeight={headerHeight}
                     fontSize={fontSize}
                 />
             </XRDomOverlay>
