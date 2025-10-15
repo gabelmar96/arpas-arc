@@ -1,12 +1,48 @@
+import { Mesh, Vector3, } from "three"
+import { useEffect, useLayoutEffect, useRef, useState } from "react"
+import { ThreeEvent, useThree } from "@react-three/fiber"
+import { Header } from "../../components-ui"
+import { useXRStore, XRDomOverlay } from "@react-three/xr"
 
-import { Mesh, Vector3,} from "three"
-import { useEffect, useRef, useState } from "react"
-import { ThreeEvent, useThree} from "@react-three/fiber"
+const debounce = (func: () => void, delay: number) => {
+    let timeoutId: ReturnType<typeof setTimeout>;
+    return () => {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(func, delay);
+    };
+};
 
 const IndexPageARInteraction = () => {
-    const { gl } = useThree()
+    const store = useXRStore();
+    const { gl, camera } = useThree();
     const [position, setPosition] = useState<Vector3 | null>(null)
 
+    //const planes = useXRPlanes(gl);
+    //useTapRaycast(gl, camera, setPosition, planes);
+
+    // UI values
+    const fontSize = 22;
+    const [isHelpVisible, setIsHelpVisible] = useState(false);
+    const [headerHeight, setHeaderHeight] = useState(0);
+
+    // Update header height on mount and window resize
+    useLayoutEffect(() => {
+        const updateHeaderHeight = () => {
+            const header = document.querySelector("#arc-header") as HTMLElement;
+            if (header) {
+                setHeaderHeight(header.offsetTop + header.offsetHeight);
+            }
+        };
+
+        // Delay the calculation slightly to ensure the DOM is fully rendered
+        setTimeout(updateHeaderHeight, 100);
+
+        // Debounced update for resize events
+        const debouncedUpdateHeaderHeight = debounce(updateHeaderHeight, 200);
+        window.addEventListener("resize", debouncedUpdateHeaderHeight);
+        return () => window.removeEventListener("resize", debouncedUpdateHeaderHeight);
+    }, []);
+    
     useEffect(() => {
         const session = gl.xr.getSession();
         if (!session) return
@@ -48,12 +84,30 @@ const IndexPageARInteraction = () => {
         }
     }, [gl])
 
-    return position ? (
-        <mesh position={position}>
-            <boxGeometry args={[0.2, 0.2, 0.2]} />
-            <meshStandardMaterial color="orange" />
-        </mesh>
-    ) : null
+    return (
+        <>
+            <XRDomOverlay style={{ width: "100%", height: "100%", fontSize: `${fontSize}px`, boxSizing: "border-box" }}>
+                <Header
+                    isHelpVisible={isHelpVisible}
+                    onToggleHelp={() => setIsHelpVisible((v) => !v)}
+                    onLeave={() => store.getState().session?.end()}
+                    fontSize={fontSize}
+                />
+            </XRDomOverlay>
+
+            {/* Visualize detected planes 
+            {planes.map((p, i) => (
+                <primitive object={p} key={i} />
+            ))}*/}
+
+            {position && (
+                <mesh position={position}>
+                    <boxGeometry args={[0.2, 0.2, 0.2]} />
+                    <meshStandardMaterial color="orange" />
+                </mesh>
+            )}
+        </>
+    );
 }
 
 export default IndexPageARInteraction
