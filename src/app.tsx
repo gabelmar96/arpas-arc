@@ -17,6 +17,9 @@ interface AppProps {
     minioData? : MinioData
 }
 
+const store = createXRStore({ controller: false });
+
+/*
 const store = createXRStore({
     controller: false,
     sessionInit: {
@@ -24,6 +27,7 @@ const store = createXRStore({
     optionalFeatures: ["hit-test", "plane-detection"], 
     }
   });
+  */
 
 const App = ({
     buttonClassName = "start-button",
@@ -42,8 +46,8 @@ const App = ({
         <Canvas style={{ width: "100%", height: "100%" }}>
             <XR store={store}>
                 <IfInSessionMode allow="immersive-ar">
-                    {/*<IndexPage contentTypes={content_types} sceneData={scene} topicData={topic} minioData={minioData} />*/}
-                    <IndexPageARInteraction />
+                    <IndexPage contentTypes={content_types} sceneData={scene} topicData={topic} minioData={minioData} />
+                    {/*<IndexPageARInteraction />*/}
                 </IfInSessionMode>
             </XR>
         </Canvas>

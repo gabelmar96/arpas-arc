@@ -88,7 +88,6 @@ const ObjectScene: React.FC<ObjectSceneProps> = ({
         console.warn("Scene data is null or undefined.");
         return null;
     }
-    console.log("Amount of objects rendered: " + (renderedObjects.length))
     return <group rotation={[0, -worldRotation - Math.PI / 2, 0]}>
         {renderedObjects}
     </group>;

@@ -25,6 +25,7 @@ export function getIntersectedSceneObject(event: XRInputSourceEvent, state: Root
     const direction = new THREE.Vector3(0, 0, -1).applyQuaternion(new THREE.Quaternion(qx, qy, qz, qw));
 
     const raycaster = new THREE.Raycaster(origin, direction);
+    raycaster.camera = state.camera;
     const intersects = raycaster.intersectObjects(state.scene.children, true);
 
     console.log("Intersects:", intersects);
