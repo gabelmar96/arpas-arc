@@ -29,7 +29,7 @@ export const AlgaeScene: SceneData = {
                     isLiked: true,
                     dislikes: 0,
                     isDisliked: false,
-                    text: "This wooden bench is perfect for relaxing under the trees. I love its natural look!",
+                    text: "This photobioreactor setup looks really efficient! The light distribution seems uniform, which should boost algal growth rates significantly. Curious to know what strain of algae you’re cultivating.",
                     replies: [
                         {
                             id: 2,
@@ -41,7 +41,7 @@ export const AlgaeScene: SceneData = {
                             isLiked: true,
                             dislikes: 0,
                             isDisliked: false,
-                            text: "Totally agree! Adds a nice touch of nature to the cityscape.",
+                            text: "Totally agree! I've heard they grow sea lettuce in it.",
                         }
                     ]
                 },
@@ -54,19 +54,19 @@ export const AlgaeScene: SceneData = {
                     isLiked: false,
                     dislikes: 5,
                     isDisliked: false,
-                    text: "Not a fan of the untreated wood—looks like it won’t last long outdoors.",
+                    text: "Great design - Have you monitored CO₂ utilization yet? It’d be interesting to see how it compares to traditional open-pond systems.",
                     replies: []
                 }
             ],
             variants: [
                 {
                     id: 0,
-                    name: "Var 1",
-                    description: "A plain wooden bench with a natural wood texture. The surface is untreated, showcasing the raw grain and organic color variations of the timber. Ideal for rustic or traditional outdoor settings.",
+                    name: "PBR 1",
+                    description: "A laboratory-scale photobioreactor system used for cultivating macroalgae. It allows precise control over environmental parameters such as light intensity, temperature, pH, and gas composition. The enclosed glass container, combined with integrated sensors and aeration lines, enable researchers to optimize conditions for algal growth and productivity.",
                     mesh_id: "food4future/pbr.glb",
                     mesh_url: null,
-                    offset_position: [50, 0, 0],
-                    offset_rotation: [0, -90, 0],
+                    offset_position: [0, 0, 0],
+                    offset_rotation: [0, 0, 0],
                     offset_scale: [1, 1, 1],
                     weight: 0,
                     likes: 42,
@@ -78,7 +78,7 @@ export const AlgaeScene: SceneData = {
         },
         {
             id: 2,
-            name: "Metal Bench",
+            name: "Experimental Setups",
             coordinates: [import.meta.env.VITE_DEFAULT_LAT ?? 0, import.meta.env.VITE_DEFAULT_LONG ?? 0, 0],
             qr_id: "metal_bench_1",
             comments: [
@@ -91,7 +91,7 @@ export const AlgaeScene: SceneData = {
                     isLiked: true,
                     dislikes: 1,
                     isDisliked: false,
-                    text: "Love the industrial feel of this metal bench—very sturdy and stylish.",
+                    text: "This spray culture system design is really innovative! The fine misting should improve nutrient delivery and oxygen transfer for faster growth.",
                     replies: [
                         {
                             id: 5,
@@ -103,7 +103,7 @@ export const AlgaeScene: SceneData = {
                             isLiked: false,
                             dislikes: 0,
                             isDisliked: true,
-                            text: "Glad it’s painted green—it blends in better with the environment.",
+                            text: "It’s a clever setup, but I’m skeptical about scalability. Maintaining uniform spray coverage and environmental control could become difficult in larger reactors.",
                         }
                     ]
                 }
@@ -111,13 +111,28 @@ export const AlgaeScene: SceneData = {
             variants: [
                 {
                     id: 0,
-                    name: "Green Painted",
-                    description: "A durable metal bench coated with a dark green paint finish. Designed to blend well with park and garden surroundings while providing excellent resistance to rust and environmental wear.",
+                    name: "Spray Culture System",
+                    description: "This spray culture system is an experimental setup designed to study algal growth under mist-based conditions. It uses fine nozzles to spray nutrient-rich droplets onto the culture surface, promoting efficient gas exchange and reduced water use.",
                     mesh_id: "food4future/sprayculture.glb",
                     mesh_url: null,
-                    offset_position: [0, 0, 0],
-                    offset_rotation: [0, 180, 0],
-                    offset_scale: [5, 5, 5],
+                    offset_position: [3, 0, 0],
+                    offset_rotation: [0, 0, 0],
+                    offset_scale: [1, 1, 1],
+                    weight: 0,
+                    likes: 11,
+                    isLiked: false,
+                    dislikes: 2,
+                    isDisliked: false
+                },
+                {
+                    id: 0,
+                    name: "Flat-panel Bioreactor",
+                    description: "This flat panel system is an experimental photobioreactor designed for controlled algal cultivation. It consists of thin, transparent panels that allow uniform light exposure and efficient gas exchange across the culture.",
+                    mesh_id: "food4future/flatpanel.glb",
+                    mesh_url: null,
+                    offset_position: [5, 0, 0],
+                    offset_rotation: [0, 0, 0],
+                    offset_scale: [1, 1, 1],
                     weight: 0,
                     likes: 11,
                     isLiked: false,
