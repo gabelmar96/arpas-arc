@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import App from "./app";
 import "./style.css"
 import { ContentTypes } from "./utility/mockData";
-import { BenchScene as SceneData, BenchTopic as TopicData } from "./utility/mockData";
+import { AlgaeScene as SceneData, BenchTopic as TopicData } from "./utility/mockData";
 import { MinioMockData } from "./utility/minioData";
 
 import("../dev/scss/style.scss");
